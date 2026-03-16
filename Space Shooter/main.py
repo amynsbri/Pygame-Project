@@ -13,6 +13,8 @@ while running:
             running = False
 
     # draw the game
+    display_surface.fill('cadetblue1')
+    pygame.display.flip()
 
 
 pygame.quit()
