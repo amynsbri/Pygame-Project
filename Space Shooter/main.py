@@ -1,4 +1,6 @@
 import pygame
+from random import randint
+from os.path import join
 
 # general setup
 pygame.init()
@@ -7,6 +9,16 @@ display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption('Space Shooter')
 running = True
 
+# plain surface
+surf = pygame.Surface((100, 200))
+surf.fill('Orange')
+x = 100
+
+# importing an image
+player_surf = pygame.image.load(join('Assets', 'space shooter', 'images', 'player.png')).convert_alpha()
+star_surf = pygame.image.load(join('Assets', 'space shooter', 'images', 'star.png')).convert_alpha()
+star_positions = [(randint(0, WINDOW_WIDTH),randint(0,WINDOW_HEIGHT)) for i in range(20)]
+
 while running:
     # event loop
     for event in pygame.event.get():
@@ -14,8 +26,12 @@ while running:
             running = False
 
     # draw the game
-    display_surface.fill('cadetblue1')
-    pygame.display.flip()
+    display_surface.fill('darkgrey')
+    for pos in star_positions:
+        display_surface.blit(star_surf, pos)
+    display_surface.blit(player_surf, (x,150))
+    x += 0.1
+    pygame.display.update()
 
 
 pygame.quit()
